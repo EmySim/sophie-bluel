@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="Page de présentation Sophie Bluel">
+	<script src="https://kit.fontawesome.com/9f4d9c6beb.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body>
+	<div class="banner adminfeature-edition"> 
+		<div class="banner-content">
+			<span id="banner-modifier" class="trigger-modal"><i class="fa-regular fa-pen-to-square"></i>Mode édition</span>
+		</div>
+	</div>
+
+	<div class="body-container">
+		<header>
+			<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+			
+			<nav>
+				<ul>
+					<li><a href="#">projets</a></li>
+					<li><a href="#">contact</a></li>
+					<li id="loginLink" class="guest"><a href="login.html">login</a></li>
+					<li id="logoutLink" class="adminfeature-edition">logout</li>
+					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+				</ul>
+			</nav>
+
+		</header>
+
+		<main>
+			<section id="introduction">
+				<figure>
+					<img src="./assets/images/sophie-bluel.png" alt="">
+				</figure>
+				<article>
+					<h2>Designer d'espace</h2>
+					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+				</article>
+			</section>
+
+			<section id="portfolio">
+				<div class="portfolio-title">
+					<h2>Mes Projets</h2>
+					<span id="title-modifier" class="adminfeature-edition trigger-modal"><i class="fa-regular fa-pen-to-square"></i>modifier</span>
+				</div>
+
+				<div class="filters">
+					<button data-category-id="0" class="filter active">Tous</button> 
+				</div>
+				<div class="gallery">
+					<!-- <figure>
+						<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
+						<figcaption>Abajour Tahina</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
+						<figcaption>Appartement Paris V</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
+						<figcaption>Restaurant Sushisen - Londres</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
+						<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
+						<figcaption>Structures Thermopolis</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
+						<figcaption>Appartement Paris X</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
+						<figcaption>Pavillon “Le coteau” - Cassis</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
+						<figcaption>Villa Ferneze - Isola d’Elba</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
+						<figcaption>Appartement Paris XVIII</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
+						<figcaption>Bar “Lullaby” - Paris</figcaption>
+					</figure>
+					<figure>
+						<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
+						<figcaption>Hotel First Arte - New Delhi</figcaption>
+					</figure> -->
+				</div>
+			</section>
+			<section id="contact">
+				<h2>Contact</h2>
+				<p>Vous avez un projet ? Discutons-en !</p>
+				<form action="#" method="post">
+					<label for="name">Nom</label>
+					<input type="text" name="name" id="name">
+					<label for="email">E-mail</label>
+					<input type="email" name="email" id="email">
+					<label for="message">Message</label>
+					<textarea name="message" id="message" cols="30" rows="10"></textarea>
+					<input type="submit" value="Envoyer">
+				</form>
+			</section>
+		</main>
+
+		<footer>
+			<nav>
+				<ul>
+					<li>Mentions Légales</li>
+				</ul>
+			</nav>
+			
+		</footer>
+		<div id="overlay"></div>
+
+		<section id="dialog-worksmodification" >
+			<div id="modalbox-gallery" class="insert-modal">
+				<span id="close-modalbox1" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+				<h1 class="modal-title">Galerie Photo</h1>
+				<div class="modal-gallery"><!-- insertAPIw/works --></div>
+				<hr>
+				<button class="modal-button" id="open-modalbox2">Ajouter une photo</button>
+			</div>
+
+			<div id="modalbox-addpicture" class="insert-modal">
+				<section id="modalbox-header">
+					<span id="back-arrow" class="trigger-modal"><i class="fa-solid fa-arrow-left"></i></span>
+					<span id="close-modalbox2" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+				</section>
+				<h1 class="modal-title">Ajout photo</h1>
+				<form enctype="multipart/form-data" class="add-work-form" name="js-form-add-photo" id="js-form-add-photo" action="#"  method="post">
+					<div id="modalform-addpicture"> 
+						<section id="picture-container">
+							<img src="assets/icons/Vector.svg" alt="icone_svg">
+							<label for="fileInput" class="label-file">+ Ajouter photo</label>
+							<input type="file" id="fileInput" class="input-file" name="fichier" accept="image/*" required> 
+							<p>jpg, png : 4mo max</p>
+						</section>
+						<section id="modalform-form">
+							<label for="title" class="label-titre">Titre</label>
+							<input type="text" class="input-text" id="title" name="title" required>
+							<label for="category-dropdownlist" class="label-category">Catégorie</label>
+							<select id="category-dropdownlist" name="category" required>
+								<option value="">.<!-- insertAPIw/categories --></option>
+							</select>
+						</section>
+					</div>
+					<hr>
+					<input type="submit" class="modal-button" value="Valider">
+				</form>
+			</div>
+		</section>
+				
+	</div>
+
+	<script src="./assets/js/script.js" type="module" crossorigin="anonymous" ></script>
+	<script src="./assets/js/modal.js" type="module" crossorigin="anonymous" ></script>
+
+
+</body>
+</html>
