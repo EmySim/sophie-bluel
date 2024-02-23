@@ -78,7 +78,7 @@ function filterImages(categoryId) {
 }
 
 function checkUserStatus() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (token) {
         console.log('Utilisateur connecté');
         updateUI('admin');
@@ -89,7 +89,7 @@ function checkUserStatus() {
 }
 
 function logout() {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     checkUserStatus();
 }
 

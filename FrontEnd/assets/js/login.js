@@ -20,7 +20,7 @@ loginForm.addEventListener('submit', async function (event) {
 
         if (res.status === 200) {
             const responseData = await res.json();// Traiter la réponse, stocker le token dans le stockage local
-            localStorage.setItem('token', responseData.token);
+            sessionStorage.setItem('token', responseData.token);
             window.location.href = 'index.html';// Rediriger l'utilisateur vers accueil admin
         } else {
             if (res.status === 401) {

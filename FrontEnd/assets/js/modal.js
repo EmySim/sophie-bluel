@@ -112,7 +112,7 @@ function getWorks() {
                 // créer le bouton delete
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('trash-btn');
-                deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+                deleteButton.innerHTML = 'img src="assets/icons/';
                 deleteButton.addEventListener('click', function () {
                     const workId = data[i].id;
                     deleteWork(workId);
@@ -170,27 +170,23 @@ function createImgContainer(file) {
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     if (file) {
-        if (!file.type.startsWith('image/')) {
-            alert('Veuillez sélectionner un fichier image (jpg, png, etc.).');
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Veuillez sélectionner un fichier image jpg ou png.');
             this.value = null; // Reset 
             return;
         }
         if (file.size <= 4194304) { //4MB = 
             createImgContainer(file);
             const img = document.getElementById('uploaded-img');
-            //img.src = URL.createObjectURL(file); 
             const reader = new FileReader();
             reader.onload = function (event) {
                 img.src = event.target.result;
             };
-
             reader.readAsDataURL(file);
-            console.log('uplodaImg', file)
-
         } else {
             alert('L\'image ne doit dépasser 4Mo.');
             this.value = null;
-            console.log('value1', value)
         }
     }
 });

@@ -140,11 +140,6 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
 
 .filters {
 	display: flex;
@@ -356,12 +351,18 @@ footer nav li {
 	display:flex;
 	justify-content: center;
 	align-items: baseline;
+	margin-bottom: 15px;
+}
+
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 51px;
 }
 
 #title-modifier {
 	display: none;
 	display: flex;
-	margin-left: 50px;
+	padding-left: 31px;
 }
 
 #banner-modifier, #title-modifier {
@@ -376,9 +377,10 @@ footer nav li {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 630px;
+	height: 688px;
 	border-radius: 10px;
-	border: none;
 	background: white;
+	margin: 0px;
 }
 
 #overlay {
@@ -397,15 +399,16 @@ footer nav li {
 	font-weight: 400;
 	text-align: center;
 	color:#000;
-	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-top: 60px;
+	padding-bottom: 46px;
 }
 
 #modalbox-gallery {
 	display: none;
 	flex-direction: column;
 	align-items: center;
-	padding: 1em;
+	box-sizing: border-box;
+	height: 100%;
 }
 
 .modal-gallery {
@@ -427,26 +430,30 @@ footer nav li {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	padding: 20px;
-	width: 100%;
+	box-sizing: border-box;
+	height: 100%;
 }
 
 .image-wrapper {
 	display: flex;
-	align-items: flex-start;
 	position: relative;
+	justify-content:flex-end;
 }
 
 .trash-btn {
 	position: absolute;
 	cursor: pointer;
-	top: 0;
+	background-color: #000;
+	width: 17px;
+	height: 17px;
 }
 
 #modalbox-header {
 	display: flex;
-	margin:0;
-	width:100%;
+	justify-content: space-between;
+	align-items: center;
+	
+	
 }
 #back-arrow {
 	justify-content: flex-end;
@@ -454,16 +461,17 @@ footer nav li {
 }
 
 #close-modalbox1, #close-modalbox2 {
+	display: flex;
 	cursor: pointer;
-	margin-left: auto;
 }
+
 
 .modal-button, input.modal-button { 
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin : 2em auto ;
+	margin-bottom: 45px;
 	width: 237px;
 	height: 36px;
 	text-align: center;
@@ -490,7 +498,12 @@ button.modal-button {
 hr {
 	width: 420px;
 	border: 1px solid #B3B3B3;
-	margin-top: 20px;
+	margin-top: 67.3px;
+}
+
+.add-work-form {
+	box-sizing: content-box;
+	height: 100%;
 }
 
 #modalform-addpicture, #modalform-form {
