@@ -1,4 +1,5 @@
 import { loadData } from "./script.js";
+console.log("modaljs-port");
 
 let fileInput = document.getElementById('fileInput');
 
@@ -112,7 +113,7 @@ function getWorks() {
                 // créer le bouton delete
                 const deleteButton = document.createElement('button');
                 deleteButton.classList.add('trash-btn');
-                deleteButton.innerHTML = 'img src="assets/icons/';
+                deleteButton.innerHTML = '<i class="fa-solid fa-trash-can fa-2xs" style="color: #ffffff;"></i>';
                 deleteButton.addEventListener('click', function () {
                     const workId = data[i].id;
                     deleteWork(workId);
@@ -145,7 +146,9 @@ function deleteWork(id) {
                 throw new Error('La requête DELETE a échoué.');
             }
             alert('Work supprimé avec succès.');
-
+            //faire la fermeture de la modale (display none) sur la grosse modale //
+            //a l'emplacement ss les filtres refaire le get work
+            //loadData(); 
         })
         .catch(error => {
             alert('Une erreur est survenue lors de la suppression du work.');
@@ -223,7 +226,7 @@ function categoryDropdownList() {
 
             //Sélectionner la catégorie
             dropdownList.addEventListener('change', () => {
-                const selectedCategoryId = dropdownList.value; //1
+               // const selectedCategoryId = dropdownList.value; //1
             });
         })
         .catch(error => {
@@ -278,6 +281,9 @@ document.querySelector('.add-work-form').addEventListener('submit', function (ev
                     fileInput.value = null;
                     document.getElementById('title').value = '';
                     document.getElementById('category-dropdownlist').selectedIndex = 0;
+                    //faire la fermeture de la modale (display none) sur la grosse modale //
+            //a l'emplacement ss les filtres refaire le get work
+            //loadData(); 
                 } else {
                     alert('Work non mis à jour');
                 }

@@ -1,4 +1,4 @@
-console.log('login')
+console.log('loginjs-port')
 //ajout ecouteur d'événement submit
 const loginForm = document.querySelector('#login-form');
 loginForm.addEventListener('submit', async function (event) {

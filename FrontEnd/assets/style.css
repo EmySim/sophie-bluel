@@ -140,6 +140,10 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
+#portfolio h2 {
+	text-align: center;
+}
+
 
 .filters {
 	display: flex;
@@ -172,10 +176,14 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	/*max-height: 1000px;
+	overflow-y: auto;*/
 }
 
 .gallery img {
 	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 /**** Page login ****/
@@ -211,37 +219,6 @@ li:hover {
 	border: none;
 }
  
-/*Message d'erreur connexion*/
-.minipopup-box {
-	display: none;
-	position: fixed;
-	top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-	padding: 1rem;
-	border-color: red;
-}
-
-.minipopup-content {
-	display: flex;
-	text-align: center;
-	color:red
-}
-
-.login-error-message {
-	padding-right:15px;
-	padding-left:15px;
-}
-
-.fa-regular.fa-circle-xmark {
-    cursor: pointer; 
-	color:red
-}
-/* Fin message d'erreur connexion */
 /**** Fin Page login****/
 
 #contact {
@@ -350,19 +327,15 @@ footer nav li {
 .portfolio-title {
 	display:flex;
 	justify-content: center;
-	align-items: baseline;
-	margin-bottom: 15px;
-}
-
-#portfolio h2 {
-	text-align: center;
-	margin-bottom: 51px;
+	align-items: center;
+	padding-top: 89px;
+	padding-bottom: 51px;
 }
 
 #title-modifier {
 	display: none;
 	display: flex;
-	padding-left: 31px;
+	margin-left: 30px;
 }
 
 #banner-modifier, #title-modifier {
@@ -379,8 +352,8 @@ footer nav li {
 	width: 630px;
 	height: 688px;
 	border-radius: 10px;
+	border: none;
 	background: white;
-	margin: 0px;
 }
 
 #overlay {
@@ -393,76 +366,94 @@ footer nav li {
     background-color: rgba(0, 0, 0, 0.3); 
 }
 
-.modal-title {
+#modal-title1 {
 	font-family: Work Sans;
 	font-size: 26px;
-	font-weight: 400;
-	text-align: center;
+	font-weight: 350;
 	color:#000;
 	padding-top: 60px;
-	padding-bottom: 46px;
+	padding-bottom: 45px;
+}
+
+#modal-title2 {
+	font-family: Work Sans;
+	font-size: 26px;
+	font-weight: 350;
+	color:#000;
+	padding-top: 60px;
+	padding-bottom: 36px;
 }
 
 #modalbox-gallery {
 	display: none;
 	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
-	box-sizing: border-box;
-	height: 100%;
+	height: 688px;
 }
 
 .modal-gallery {
 	display: grid;
-	max-height: 400px;
+	max-height: 375px;
 	overflow-y: auto;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-template-columns: repeat(5, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 23px;
 }
 
 .modal-gallery img {
 	width: 76.86px;
 	height: 102.57px;
+	object-fit: cover;
 }
 
 #modalbox-addpicture {
 	display: none;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: flex-end;
 	align-items: center;
-	box-sizing: border-box;
-	height: 100%;
+	width: 100%;
+	max-height: 688px;
 }
 
 .image-wrapper {
 	display: flex;
 	position: relative;
-	justify-content:flex-end;
+	justify-content: flex-end;
 }
 
 .trash-btn {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	cursor: pointer;
 	background-color: #000;
-	width: 17px;
+	border-radius: 2px;
+	border: none;
 	height: 17px;
+	width: 17px;
+	margin-top: 5px;
+	margin-right: 5px;
 }
 
 #modalbox-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	
-	
+	margin:0;
 }
+
 #back-arrow {
-	justify-content: flex-end;
 	cursor: pointer;
+	position: absolute;
+	top: 26px;
+	left: 30px;
 }
 
 #close-modalbox1, #close-modalbox2 {
-	display: flex;
 	cursor: pointer;
+	position: absolute;
+	top: 26px;
+	right: 30px;
 }
 
 
@@ -471,11 +462,13 @@ footer nav li {
 	font-weight: 700;
 	color: white;
 	background-color: #1D6154;
-	margin-bottom: 45px;
 	width: 237px;
 	height: 36px;
 	text-align: center;
 	border-radius: 60px;
+	margin: inherit;
+	margin-top: 32px;
+	margin-bottom: 45px;
 }
 
 #uploaded-img {
@@ -486,11 +479,12 @@ footer nav li {
 }
 
 button.modal-button {
-	margin: 20px 0;
+	margin-bottom: 40px;
+	margin-top: 35px;
 	cursor: pointer;
 }
 
-.modal-button:active {
+.modal-button:active, .modal-button:disabled {
 	background-color: #A7A7A7;
 	border: none;
 }
@@ -498,25 +492,31 @@ button.modal-button {
 hr {
 	width: 420px;
 	border: 1px solid #B3B3B3;
-	margin-top: 67.3px;
+	margin-top: 42px;
+	margin-bottom: 0px;
 }
 
-.add-work-form {
-	box-sizing: content-box;
-	height: 100%;
-}
-
-#modalform-addpicture, #modalform-form {
+#modalform-addpicture {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: space-evenly;
 }
 
 #modalform-form {
 	display: flex;
+	flex-direction: column;
 	align-items: flex-start;
 	margin-bottom: 20px;
 	margin-top: 0;
+}
+
+.add-work-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: 680px;
 }
 
 #picture-container {
@@ -528,33 +528,13 @@ hr {
 	height: 169px;
 	border-radius: 3px;
 	background-color: rgba(232, 241, 246, 1);
-	margin: 20px 0;
+	margin-bottom: 20px;
+	margin-top: 0px;
 }
 
-input#fileInput.input-file {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 173px;
-	height: 36px;
-	border-radius:50px;
-	background:rgba(203, 214, 220, 1);
-}
-
-#fileInput {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 173px;
-	height: 36px;
-	border-radius:50px;
-	background:rgba(203, 214, 220, 1);
-}
-
-label.label-file {
-	line-height: 16.42px;
-	text-align: center;	
-	color: #306685;
+#picture-container img {
+	margin-top: 13px;
+	margin-bottom: 6px;
 }
 
 #picture-container p {
@@ -565,6 +545,28 @@ label.label-file {
 	letter-spacing: 0em;
 	text-align: center;
 	color: #444444;
+	padding: 7px 0 19px;
+}
+
+label.label-file {
+	display: flex;
+	justify-content: center;
+	align-items: center;	
+	color: #306685;
+	background-color: #CBD6DC;
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	position: absolute;
+	z-index: 1;
+	top: 197px;
+	cursor: pointer;
+}
+
+input#fileInput {
+	width: 173px;
+	height: 36px;
+    opacity: 0.01; 
 }
 
 #modalform-form label {

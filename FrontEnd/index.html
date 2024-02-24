@@ -131,8 +131,8 @@
 
 		<section id="dialog-worksmodification" >
 			<div id="modalbox-gallery" class="insert-modal">
-				<span id="close-modalbox1" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
-				<h1 class="modal-title">Galerie Photo</h1>
+				<span id="close-modalbox1" class="close-modal"><i class="fa-solid fa-xmark fa-xl"></i></span>
+				<h1 id="modal-title1">Galerie Photo</h1>
 				<div class="modal-gallery"><!-- insertAPIw/works --></div>
 				<hr>
 				<button class="modal-button" id="open-modalbox2">Ajouter une photo</button>
@@ -140,10 +140,10 @@
 
 			<div id="modalbox-addpicture" class="insert-modal">
 				<section id="modalbox-header">
-					<span id="back-arrow" class="trigger-modal"><i class="fa-solid fa-arrow-left"></i></span>
-					<span id="close-modalbox2" class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+					<span id="back-arrow" class="trigger-modal"><i class="fa-solid fa-arrow-left fa-xl"></i></span>
+					<span id="close-modalbox2" class="close-modal"><i class="fa-solid fa-xmark fa-xl"></i></span>
 				</section>
-				<h1 class="modal-title">Ajout photo</h1>
+				<h1 id="modal-title2">Ajout photo</h1>
 				<form enctype="multipart/form-data" class="add-work-form" name="js-form-add-photo" id="js-form-add-photo" action="#"  method="post">
 					<div id="modalform-addpicture"> 
 						<section id="picture-container">
@@ -162,15 +162,15 @@
 						</section>
 					</div>
 					<hr>
-					<input type="submit" class="modal-button" value="Valider">
+					<button type="submit" class="modal-button" disabled>Valider</button>
 				</form>
 			</div>
 		</section>
 				
 	</div>
 
-	<script src="./assets/js/script.js" type="module" crossorigin="anonymous" ></script>
-	<script src="./assets/js/modal.js" type="module" crossorigin="anonymous" ></script>
+	<script src="./assets/js/script.js" type="module" crossorigin="anonymous"></script>
+	<script src="./assets/js/modal.js" type="module" crossorigin="anonymous"></script>
 
 
 </body>

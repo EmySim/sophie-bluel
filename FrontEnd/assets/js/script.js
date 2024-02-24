@@ -1,4 +1,4 @@
-console.log("scriptjs");
+console.log("scriptjs-port");
 
 async function loadData() {
     try {
