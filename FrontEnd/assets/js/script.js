@@ -1,116 +1,117 @@
-console.log("scriptjs-port");
+console.log("script.js");
 
-async function loadData() {
+//I Affichage Galerie
+//1) Récupérer les données Works
+export async function getWorks() {
     try {
-        const [worksResponse, categoriesResponse] = await Promise.all([
-            fetch('http://localhost:5678/api/works').then(res => res.json()),
-            fetch('http://localhost:5678/api/categories').then(res => res.json())
-        ]);
+        const res = await fetch('http://localhost:5678/api/works');
+        const data = await res.json();
 
-        displayGallery(worksResponse);
-        displayWorks(categoriesResponse);
-        checkUserStatus();
-    } catch (error) {
-        console.error("Error loading data:", error);
-    }
-}
+        const gallery = document.querySelector('.gallery');
+        for (let i = 0; i < data.length; i++) {
+            const figureElement = document.createElement('figure');
+            const imgElement = document.createElement('img');
+            imgElement.src = data[i].imageUrl;
+            imgElement.alt = data[i].title;
 
-function displayGallery(works) {
-    const gallery = document.querySelector('.gallery');
-    gallery.innerHTML = "";
-    works.forEach(work => {
-        const figureElement = document.createElement('figure');
-        const imgElement = document.createElement('img');
-        imgElement.src = work.imageUrl;
-        imgElement.alt = work.title;
-
-        const figcaptionElement = document.createElement('figcaption');
-        figcaptionElement.textContent = work.title;
-        figcaptionElement.setAttribute('data-category-id', work.categoryId);
-        figcaptionElement.setAttribute('data-work-id', work.id);
-
-        figureElement.appendChild(imgElement);
-        figureElement.appendChild(figcaptionElement);
-        gallery.appendChild(figureElement);
-    });
-}
-
-function displayWorks(categories) {
-    const filterButtonsContainer = document.querySelector('.filters');
-    categories.forEach(category => {
-        const button = document.createElement('button');
-        button.textContent = category.name;
-        button.setAttribute('data-category-id', category.id);
-        button.classList.add('filter');
-        filterButtonsContainer.appendChild(button);
-    });
-
-    const filterButtons = document.querySelectorAll('.filter');
-    filterButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const categoryId = event.target.getAttribute('data-category-id');
-            filterImages(categoryId);
-            console.log("Listener for categoryId", categoryId);
-        });
-    });
-
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function (event) {
-            filterButtons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
-        });
-    });
-}
-
-function filterImages(categoryId) {
-    const gallery = document.querySelector('.gallery');
-    const figures = gallery.querySelectorAll('figure');
-    figures.forEach(figure => {
-        const categoryData = figure.querySelector('figcaption').getAttribute('data-category-id');
-        if (categoryId === '0' || categoryData === 'all' || categoryId === categoryData) {
-            figure.style.display = 'block';
-        } else {
-            figure.style.display = 'none';
+            const figcaptionElement = document.createElement('figcaption');
+            figcaptionElement.textContent = data[i].title;
+            figcaptionElement.setAttribute('data-category-id', data[i].categoryId);
+            figcaptionElement.setAttribute('data-work-id', data[i].id);
+            figureElement.appendChild(imgElement);
+            figureElement.appendChild(figcaptionElement);
+            gallery.appendChild(figureElement);
         }
-    });
-}
-
-function checkUserStatus() {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-        console.log('Utilisateur connecté');
-        updateUI('admin');
-    } else {
-        console.log('Utilisateur déconnecté');
-        updateUI('guest');
+    } catch (error) {
+        alert("la requete Works ne peut aboutir");
     }
 }
+getWorks();
 
-function logout() {
-    sessionStorage.removeItem('token');
+//2)création des filtres Categories
+export async function getCategories() {
+    try {
+        const res = await fetch('http://localhost:5678/api/categories');
+        const data = await res.json();
+
+        const filterButtonsContainer = document.querySelector('.filters');
+        data.forEach(category => {
+            const button = document.createElement('button');
+            button.textContent = category.name;
+            button.setAttribute('data-category-id', category.id);
+            button.classList.add('filter');
+            filterButtonsContainer.appendChild(button);
+        });
+
+        const filterButtons = document.querySelectorAll('.filter');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const categoryId = event.target.getAttribute('data-category-id');
+                filterImages(categoryId);
+            });
+        });
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    } catch (error) {
+        alert("la requete Catégorie ne peut aboutir");
+    }
+}
+getCategories();
+
+    function filterImages(categoryId) {
+        const gallery = document.querySelector('.gallery');
+        const figures = gallery.querySelectorAll('figure');
+        figures.forEach(figure => {
+            const categoryData = figure.querySelector('figcaption').getAttribute('data-category-id');
+            if (categoryId === '0' || categoryData === 'all' || categoryId === categoryData) {
+                figure.style.display = 'block';
+            } else {
+                figure.style.display = 'none';
+            }
+        });
+    }
+    
+
+//II Gestion affichage profils Guest / Admin
+    export function checkUserStatus() {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            console.log('Utilisateur connecté');
+            updateUI('admin');
+        } else {
+            console.log('Utilisateur déconnecté');
+            updateUI('guest');
+        }
+    }
     checkUserStatus();
-}
 
-document.getElementById('logoutLink').addEventListener('click', function (event) {
-    event.preventDefault();
-    logout();
-});
-
-function updateUI(userType) {
-    const adminFeatures = document.getElementsByClassName('adminfeature-edition');
-    const guests = document.getElementsByClassName('guest');
-
-    for (let i = 0; i < adminFeatures.length; i++) {
-        adminFeatures[i].style.display = userType === 'admin' ? 'flex' : 'none';
+    function logout() {
+        sessionStorage.removeItem('token');
+        checkUserStatus();
     }
 
-    for (let i = 0; i < guests.length; i++) {
-        guests[i].style.display = userType === 'guest' ? 'flex' : 'none';
+    document.getElementById('logoutLink').addEventListener('click', function (event) {
+        event.preventDefault();
+        logout();
+    });
+
+    function updateUI(userType) {
+        const adminFeatures = document.getElementsByClassName('adminfeature-edition');
+        const guests = document.getElementsByClassName('guest');
+
+        for (let i = 0; i < adminFeatures.length; i++) {
+            adminFeatures[i].style.display = userType === 'admin' ? 'flex' : 'none';
+        }
+
+        for (let i = 0; i < guests.length; i++) {
+            guests[i].style.display = userType === 'guest' ? 'flex' : 'none';
+        }
     }
-}
 
-loadData();
-
-export { loadData };
