@@ -26,12 +26,11 @@ export async function loadWorks() {
             figureElement.appendChild(figcaptionElement);
             gallery.appendChild(figureElement);
         }
-    return  data;
+        return data; // ne sert à rien
     } catch (error) {
         alert("Erreur chargement Works");
     }
 }
-loadWorks()
 
 //2)création des filtres Categories
 export async function getCategories() {
@@ -49,12 +48,6 @@ export async function getCategories() {
         });
 
         const filterButtons = document.querySelectorAll('.filter');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', (event) => {
-                const categoryId = event.target.getAttribute('data-category-id');
-                filterImages(categoryId);
-            });
-        });
 
         filterButtons.forEach(button => {
             button.addEventListener('click', function (event) {
@@ -62,6 +55,8 @@ export async function getCategories() {
                     btn.classList.remove('active');
                 });
                 this.classList.add('active');
+                const categoryId = event.target.getAttribute('data-category-id');
+                filterImages(categoryId);
             });
         });
         return data;

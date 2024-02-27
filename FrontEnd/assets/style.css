@@ -436,7 +436,10 @@ footer nav li {
 	width: 17px;
 	margin-top: 5px;
 	margin-right: 5px;
+	color: white;
 }
+
+/** **/
 
 #modalbox-header {
 	margin:0;

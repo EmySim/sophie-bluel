@@ -1,7 +1,6 @@
 console.log("modal.js");
 
-import { loadWorks , getCategories, checkUserStatus } from "./script.js";
-//import { getWorks } from "./script.js";
+import { loadWorks, getCategories, checkUserStatus } from "./script.js";
 
 // Selecteurs DOM
 const token = checkUserStatus();
@@ -30,6 +29,80 @@ const resetForm = () => {
 };
 
 //Gestion ouverture et fermeture modales
+async function showWorksInModal() {
+    try {
+        const res = await fetch('http://localhost:5678/api/works');
+        const data = await res.json();
+        const modalGallery = document.querySelector('.modal-gallery');
+        modalGallery.innerHTML = '';
+        for (let i = 0; i < data.length; i++) {
+            const imgElement = document.createElement('img');
+            imgElement.src = data[i].imageUrl;
+            imgElement.alt = data[i].title;
+            imgElement.setAttribute('data-category-id', data[i].categoryId);
+            imgElement.setAttribute('data-work-id', data[i].id);
+
+            // créer le bouton delete
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('trash-btn');
+            deleteButton.innerHTML = '<i class="fa-solid fa-trash-can fa-2xs"></i>';
+            deleteButton.addEventListener('click', function () {
+                const workId = data[i].id;
+                deleteWork(workId);
+            });
+
+            // Créer le wrapper
+            const imageWrapper = document.createElement('div');
+            imageWrapper.classList.add('image-wrapper');
+            imageWrapper.appendChild(imgElement);
+            imageWrapper.appendChild(deleteButton);
+            modalGallery.appendChild(imageWrapper);
+        }
+    } catch (error) {
+        alert("Erreur chargement Works");
+    }
+}
+
+async function showCategoriesInSelect() {
+    try {
+        const res = await fetch('http://localhost:5678/api/categories');
+        const data = await res.json();
+
+        const dropdownList = document.getElementById('category-dropdownlist');
+        dropdownList.innerHTML = '';
+
+        // option vide
+        const emptyOption = document.createElement('option');
+        emptyOption.setAttribute('value', ''); // vide
+        dropdownList.appendChild(emptyOption);
+
+        // Ajouter les options
+        data.forEach(category => {
+            const option = document.createElement('option');
+            option.setAttribute('data-category-id', category.id);
+            option.classList.add('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            dropdownList.appendChild(option);
+        });
+
+        //Sélectionner la catégorie
+        dropdownList.addEventListener('change', () => {
+            const selectedCategoryId = dropdownList.value; //1
+            const validerButton = document.getElementById('valider-js');
+            if (selectedCategoryId) {
+                validerButton.disabled = false;
+            } else {
+                validerButton.disabled = true;
+            }
+        })
+
+    } catch (error) {
+        console.error("la requete Categories de la modale Addpicture ne peut aboutir", error);
+    };
+};
+
+
 const showOverlay = () => overlay.style.display = 'block';
 const hideOverlay = () => overlay.style.display = 'none';
 
@@ -38,6 +111,8 @@ const openModal = (galleryDisplay, addPictureDisplay) => {
     modalboxGallery.style.display = galleryDisplay;
     modalboxAddPicture.style.display = addPictureDisplay;
     showOverlay();
+    showWorksInModal();
+    showCategoriesInSelect();
 };
 
 const closeModal = () => {
@@ -73,7 +148,7 @@ overlay.addEventListener("click", (event) => {
 
 //Modale 1 Modalbox Gallery
 //Affichage galerie sur la modale
-loadWorks().then(data => {
+/*loadWorks().then(data => { 
     const modalGallery = document.querySelector('.modal-gallery');
     modalGallery.innerHTML = '';
     for (let i = 0; i < data.length; i++) {
@@ -86,7 +161,7 @@ loadWorks().then(data => {
         // créer le bouton delete
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('trash-btn');
-        deleteButton.innerHTML = '<i class="fa-solid fa-trash-can fa-2xs" style="color: #ffffff;"></i>';
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash-can fa-2xs"></i>';
         deleteButton.addEventListener('click', function () {
             const workId = data[i].id;
             deleteWork(workId);
@@ -102,7 +177,7 @@ loadWorks().then(data => {
 })
     .catch(error => {
         alert("la requete Works de la modale Galerie ne peut aboutir", error);
-    });
+    }); */
 
 //Effacer le work
 async function deleteWork(id) {
@@ -130,18 +205,22 @@ async function deleteWork(id) {
 
 //Modale 2 Modalbox Addpicture
 //Section upload
-function createImgContainer(file) {
+function createImgContainer() {
     const imgContainer = document.getElementById('picture-container');
     const img = document.createElement('img');
     img.id = 'uploaded-img';
 
     // Placer l'image dans le container
-    const paragraphElement = imgContainer.querySelector('p');
-    imgContainer.insertBefore(img, paragraphElement);
+    /*const paragraphElement = imgContainer.querySelector('p');
+    imgContainer.insertBefore(img, paragraphElement);*/
+    //insérer pas par rapport au paragraphe ms avant image
+    //imgContainer insert avec un type de insert
+    
+    //const paragraphElement = imgContainer.querySelector('p');
+    imgContainer.insertAdjacentHTML("afterbegin", img);
 }
 
 //EventListener pour upload
-
 let fileInput = document.getElementById('fileInput');
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
@@ -168,7 +247,7 @@ fileInput.addEventListener('change', function (event) {
 });
 
 //Section dropdownlist
-getCategories().then(data => {
+/*getCategories().then(data => {
     const dropdownList = document.getElementById('category-dropdownlist');
     dropdownList.innerHTML = '';
 
@@ -200,7 +279,7 @@ getCategories().then(data => {
 
 }).catch(error => {
     console.error("la requete Categories de la modale Addpicture ne peut aboutir", error);
-});
+});*/
 
 // EventListener pour soumission formulaire
 document.querySelector('.add-work-form').addEventListener('submit', function (event) {
