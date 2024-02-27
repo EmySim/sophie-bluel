@@ -476,6 +476,7 @@ footer nav li {
     height: 169px;
     position: absolute;
 	object-fit: cover;
+	z-index: 1;
 }
 
 button.modal-button {

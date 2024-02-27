@@ -6,7 +6,7 @@ export async function getWorks() {
     try {
         const res = await fetch('http://localhost:5678/api/works');
         const data = await res.json();
-
+        
         const gallery = document.querySelector('.gallery');
         for (let i = 0; i < data.length; i++) {
             const figureElement = document.createElement('figure');
@@ -22,6 +22,7 @@ export async function getWorks() {
             figureElement.appendChild(figcaptionElement);
             gallery.appendChild(figureElement);
         }
+        return data;
     } catch (error) {
         alert("la requete Works ne peut aboutir");
     }
@@ -59,6 +60,7 @@ export async function getCategories() {
                 this.classList.add('active');
             });
         });
+    return data;
     } catch (error) {
         alert("la requete Catégorie ne peut aboutir");
     }
@@ -89,6 +91,7 @@ getCategories();
             console.log('Utilisateur déconnecté');
             updateUI('guest');
         }
+        return token; 
     }
     checkUserStatus();
 
