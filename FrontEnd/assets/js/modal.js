@@ -1,10 +1,9 @@
 console.log("modal.js");
-//import { loadData} from "./script";
-import { getWorks, getCategories, checkUserStatus } from "./script.js";
 
-let fileInput = document.getElementById('fileInput');
+import { loadWorks , getCategories, checkUserStatus } from "./script.js";
+//import { getWorks } from "./script.js";
 
-// Définition des éléments
+// Selecteurs DOM
 const token = checkUserStatus();
 const triggerModalElements = document.querySelectorAll('.trigger-modal');
 const modalWorksModification = document.getElementById("dialog-worksmodification");
@@ -13,22 +12,31 @@ const modalboxAddPicture = document.getElementById("modalbox-addpicture");
 const closingButtons = document.querySelectorAll('.close-modal');
 const openModalbox2 = document.getElementById("open-modalbox2");
 const backArrow = document.getElementById('back-arrow');
+const title = document.getElementById('title');
+const categoryDropdownlist = document.getElementById('category-dropdownlist');
+const pictureContainer = document.getElementById('picture-container');
+const overlay = document.getElementById('overlay');
+
+//Rafraichissement du formulaire
+const resetForm = () => {
+    fileInput.value = '';
+    title.value = '';
+    categoryDropdownlist.selectedIndex = 0;
+
+    const uploadedImg = pictureContainer.querySelector('#uploaded-img');
+    if (uploadedImg) {
+        pictureContainer.removeChild(uploadedImg);
+    }
+};
 
 //Gestion ouverture et fermeture modales
 const showOverlay = () => overlay.style.display = 'block';
 const hideOverlay = () => overlay.style.display = 'none';
 
-const openModalboxGallery = () => {
+const openModal = (galleryDisplay, addPictureDisplay) => {
     modalWorksModification.style.display = 'block';
-    modalboxGallery.style.display = 'flex';
-    modalboxAddPicture.style.display = 'none';
-    showOverlay();
-};
-
-const openModalboxAddPicture = () => {
-    modalWorksModification.style.display = 'block';
-    modalboxAddPicture.style.display = 'flex';
-    modalboxGallery.style.display = 'none';
+    modalboxGallery.style.display = galleryDisplay;
+    modalboxAddPicture.style.display = addPictureDisplay;
     showOverlay();
 };
 
@@ -37,21 +45,22 @@ const closeModal = () => {
     modalboxAddPicture.style.display = 'none';
     modalboxGallery.style.display = 'none';
     hideOverlay();
+    resetForm();
 };
 
 // EventListener retour modale 1
 backArrow.addEventListener('click', () => {
     closeModal();
-    openModalboxGallery();
+    openModal('flex', 'none');
 });
 
 //Ouvrir/retourner sur la modale1
-for (let element of triggerModalElements) {
-    element.addEventListener('click', openModalboxGallery);
-}
+triggerModalElements.forEach(element => {
+    element.addEventListener('click', () => openModal('flex', 'none'));
+});
 
 //ouvrir la modale2
-openModalbox2.addEventListener('click', openModalboxAddPicture);
+openModalbox2.addEventListener('click', () => openModal('none', 'flex'));
 
 //fermer la modale
 closingButtons.forEach(button => button.addEventListener("click", closeModal));
@@ -64,7 +73,7 @@ overlay.addEventListener("click", (event) => {
 
 //Modale 1 Modalbox Gallery
 //Affichage galerie sur la modale
-getWorks().then(data => {
+loadWorks().then(data => {
     const modalGallery = document.querySelector('.modal-gallery');
     modalGallery.innerHTML = '';
     for (let i = 0; i < data.length; i++) {
@@ -111,9 +120,9 @@ async function deleteWork(id) {
         }
 
         alert('Work supprimé avec succès.');
-        //faire la fermeture de la modale (display none) sur la grosse modale //
+        closeModal();
+        loadWorks();
         //a l'emplacement ss les filtres refaire le get work
-        //loadData(); 
     } catch (error) {
         alert('Une erreur est survenue lors de la suppression du work.');
     }
@@ -125,7 +134,6 @@ function createImgContainer(file) {
     const imgContainer = document.getElementById('picture-container');
     const img = document.createElement('img');
     img.id = 'uploaded-img';
-    img.alt = 'uploaded image';
 
     // Placer l'image dans le container
     const paragraphElement = imgContainer.querySelector('p');
@@ -133,13 +141,15 @@ function createImgContainer(file) {
 }
 
 //EventListener pour upload
+
+let fileInput = document.getElementById('fileInput');
 fileInput.addEventListener('change', function (event) {
     const file = event.target.files[0];
     if (file) {
         const allowedTypes = ['image/jpeg', 'image/png'];
         if (!allowedTypes.includes(file.type)) {
             alert('Veuillez sélectionner un fichier image jpg ou png.');
-            this.value = null; // Reset 
+            this.value = null;
             return;
         }
         if (file.size <= 4194304) { //4MB = 
@@ -211,7 +221,7 @@ document.querySelector('.add-work-form').addEventListener('submit', function (ev
     formData.append('category', category);
 
     //envoi du formulaire
-    async function postWork (token) {
+    async function postWork(token) {
         try {
             const response = await fetch(`http://localhost:5678/api/works/`, {
                 method: 'POST',
@@ -224,13 +234,9 @@ document.querySelector('.add-work-form').addEventListener('submit', function (ev
 
             if (response.ok) {
                 alert('Work mis à jour');
-                //Reset
-                fileInput.value = null;
-                document.getElementById('title').value = '';
-                document.getElementById('category-dropdownlist').selectedIndex = 0;
-                //faire la fermeture de la modale (display none) sur la grosse modale //
+                closeModal();
+                loadWorks();
                 //a l'emplacement ss les filtres refaire le get work
-                //loadData(); 
             } else {
                 alert('Work non mis à jour');
             }
