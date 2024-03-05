@@ -29,7 +29,7 @@
 					<li><a href="#">contact</a></li>
 					<li id="loginLink" class="guest"><a href="login.html">login</a></li>
 					<li id="logoutLink" class="adminfeature-edition">logout</li>
-					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+					<li><a href="#"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
 				</ul>
 			</nav>
 
@@ -147,7 +147,7 @@
 				<form enctype="multipart/form-data" class="add-work-form" name="js-form-add-photo" id="js-form-add-photo" action="#"  method="post">
 					<div id="modalform-addpicture"> 
 						<section id="picture-container">
-							<img src="assets/icons/Vector.svg" alt="icone_svg">
+							<img id="icone-svg" src="assets/icons/Vector.svg" alt="icone_svg">
 							<label for="fileInput" class="label-file">+ Ajouter photo</label>
 							<input type="file" id="fileInput" class="input-file" name="fichier" accept="image/*" required> 
 							<p>jpg, png : 4mo max</p>
@@ -156,9 +156,11 @@
 							<label for="title" class="label-titre">Titre</label>
 							<input type="text" class="input-text" id="title" name="title" required>
 							<label for="category-dropdownlist" class="label-category">Catégorie</label>
-							<select id="category-dropdownlist" name="category" required>
-								<option value="">.<!-- insertAPIw/categories --></option>
-							</select>
+							<div class="select">
+								<select id="category-dropdownlist" name="category" required>
+									<option value="">.<!-- insertAPIw/categories --></option>
+								</select>
+							</div>
 						</section>
 					</div>
 					<hr>

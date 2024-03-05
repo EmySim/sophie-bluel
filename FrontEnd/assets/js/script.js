@@ -26,14 +26,13 @@ export async function loadWorks() {
             figureElement.appendChild(figcaptionElement);
             gallery.appendChild(figureElement);
         }
-        return data; // ne sert à rien
     } catch (error) {
         alert("Erreur chargement Works");
     }
 }
 
 //2)création des filtres Categories
-export async function getCategories() {
+async function getCategories() {
     try {
         const res = await fetch('http://localhost:5678/api/categories');
         const data = await res.json();
@@ -59,7 +58,7 @@ export async function getCategories() {
                 filterImages(categoryId);
             });
         });
-        return data;
+        //return data;
     } catch (error) {
         alert("la requete Catégorie ne peut aboutir");
     }

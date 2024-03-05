@@ -116,6 +116,10 @@ li:hover {
 	color: #B1663C;
 }
 
+li:hover img{
+	color: #B1663C;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -182,7 +186,8 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-	height: 100%;
+	height: 495px;
+	/*height: 97%;*/
 	object-fit: cover;
 }
 
@@ -387,7 +392,6 @@ footer nav li {
 #modalbox-gallery {
 	display: none;
 	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
 	height: 688px;
 }
@@ -483,8 +487,9 @@ footer nav li {
 }
 
 button.modal-button {
-	margin-bottom: 40px;
 	margin-top: 35px;
+	position: absolute;
+	bottom: 5px;
 	cursor: pointer;
 }
 
@@ -497,7 +502,8 @@ hr {
 	width: 420px;
 	border: 1px solid #B3B3B3;
 	margin-top: 42px;
-	margin-bottom: 0px;
+	position: absolute;
+	bottom: 116px;
 }
 
 #modalform-addpicture {
@@ -536,7 +542,7 @@ hr {
 	margin-top: 0px;
 }
 
-#picture-container img {
+#icone-svg {
 	margin-top: 13px;
 	margin-bottom: 6px;
 }
@@ -563,8 +569,12 @@ label.label-file {
 	border-radius: 50px;
 	position: absolute;
 	z-index: 1;
-	top: 197px;
+	top: 215px;
 	cursor: pointer;
+}
+
+#uploaded-img ~ * {
+	display: none;
 }
 
 input#fileInput {
@@ -578,13 +588,48 @@ input#fileInput {
 	padding-bottom: 20px;
 }
 
-#category-dropdownlist, #title { 
+#title { 
 	width: 420px;
 	height: 51px;
 	border-radius: 10px;
 	border: 1px ;
 	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 	background-color: #FFF;
+	padding-left: 16px;
+	color: #444444;
+}
+
+
+.select {
+	position: relative;
+	width: 436px;
+	height: 51px;
+}
+  
+  select {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-color: #FFF;
+	color: #444444;
+	padding-left: 16px;
+	border-radius: 10px;
+	border: 1px;
+	box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+	appearance: none;
+  }
+
+.select::after {
+	content: '\276F';
+	position: absolute;
+	top: 30%;
+	right: 0;
+	padding:0 16px;
+	color: #444444;
+	pointer-events: none;
+	transform: rotate(90deg);
+	background:  #FFF;
 }
 
 /* Fin Modale*/
