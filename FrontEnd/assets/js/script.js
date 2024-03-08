@@ -8,9 +8,8 @@ export async function loadWorks() {
 
         const gallery = document.querySelector('.gallery');
         // Supprimez les anciens éléments de la galerie
-        while (gallery.firstChild) {
-            gallery.removeChild(gallery.firstChild);
-        }
+        gallery.innerHTML = "";
+
         // Ajoutez les nouveaux éléments à la galerie
         for (let i = 0; i < data.length; i++) {
             const figureElement = document.createElement('figure');

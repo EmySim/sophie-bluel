@@ -15,12 +15,16 @@ const title = document.getElementById('title');
 const categoryDropdownlist = document.getElementById('category-dropdownlist');
 const pictureContainer = document.getElementById('picture-container');
 const overlay = document.getElementById('overlay');
+const validerButton = document.getElementById('valider-js');
+const labelFile = document.querySelector('.label-file');
 
 //Rafraichissement du formulaire
 const resetForm = () => {
     fileInput.value = '';
     title.value = '';
     categoryDropdownlist.selectedIndex = 0;
+    validerButton.disabled = true;
+    labelFile.style.display = 'flex';
 
     const uploadedImg = pictureContainer.querySelector('#uploaded-img');
     if (uploadedImg) {
@@ -73,7 +77,7 @@ async function showCategoriesInSelect() {
 
         // option vide
         const emptyOption = document.createElement('option');
-        emptyOption.setAttribute('value', ''); // vide
+        emptyOption.setAttribute('value', '');
         dropdownList.appendChild(emptyOption);
 
         // Ajouter les options
@@ -88,8 +92,8 @@ async function showCategoriesInSelect() {
 
         //Sélectionner la catégorie
         dropdownList.addEventListener('change', () => {
-            const selectedCategoryId = dropdownList.value; //1
-            const validerButton = document.getElementById('valider-js');
+            const selectedCategoryId = dropdownList.value;
+            //const validerButton = document.getElementById('valider-js');
             if (selectedCategoryId) {
                 validerButton.disabled = false;
             } else {
@@ -161,10 +165,10 @@ async function deleteWork(id) {
             throw new Error('La requête DELETE a échoué.');
         }
 
-        alert('Work supprimé avec succès.');
+        alert('Supprimé avec succès.');
         closeModal();
         loadWorks();
-      
+
     } catch (error) {
         alert('Une erreur est survenue lors de la suppression du work.');
     }
@@ -199,9 +203,8 @@ fileInput.addEventListener('change', function (event) {
             const reader = new FileReader();
             reader.onload = function (event) {
                 img.src = event.target.result;
-               
-                const labelFile = document.querySelector('.label-file');
-                reader.addEventListener('loadend', function() {
+
+                reader.addEventListener('loadend', function () {
                     labelFile.style.display = 'none';
                 });
             };
@@ -244,12 +247,11 @@ document.querySelector('.add-work-form').addEventListener('submit', function (ev
             })
 
             if (response.ok) {
-                alert('Work mis à jour');
+                alert('Mise à jour réussie');
                 closeModal();
                 loadWorks();
-                //a l'emplacement ss les filtres refaire le get work
             } else {
-                alert('Work non mis à jour');
+                alert('Les modifications ne seront pas sauvegardées');
             }
         } catch (error) {
             console.error('Erreur soumission formulaire', error);
